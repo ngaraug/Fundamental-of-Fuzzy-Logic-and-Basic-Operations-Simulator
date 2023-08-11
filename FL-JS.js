@@ -11,7 +11,7 @@ const WIDTH = 1000
 const HEIGHT = 500
 const BGCOLOR = '#c7c7c7'
 
-var layout = {
+let layout = {
   autosize: false,
   width: WIDTH,
   height: HEIGHT,
@@ -26,11 +26,11 @@ var layout = {
     t: 25,
     pad: 1
   },
-  plot_bgcolor: BGCOLOR, 
+  plot_bgcolor: BGCOLOR
 };
 
 // -- Function defination for plotting a graph
-function plotGraph(firstValuesArr, secondValuesArr ){
+function plotGraph(firstValuesArr, secondValuesArr, answerValuesArr){
   Plotly.newPlot(TESTER, [
     {
       x: firstValuesArr,
@@ -41,7 +41,15 @@ function plotGraph(firstValuesArr, secondValuesArr ){
       x: secondValuesArr,
       y: [0,1,0],
       name: 'Fuzzy func 2'
-    }],
+    },
+
+    // For plotting the answer graph
+    {
+      x: answerValuesArr,
+      y: [0,1,0],
+      name: 'Answer func'
+    }
+  ],
     layout,
     {scrollZoom: true, displayModeBar: true, zoom: false}
   );
@@ -64,23 +72,23 @@ TESTER = document.getElementById('tester');
 
 
 // -- ENTRY POINT --
-plotGraph([{}],[{}])
+plotGraph([], [], [])
 
 
 // -- Plotting graph for the user inputs
 inputs.forEach(input =>{
   input.addEventListener('change', ()=>{
-    var mean1 = 0
-    var mean2 = 0
-    var total1 = parseInt(pointA.value) + parseInt(pointB.value)
-    var total2 = parseInt(pointC.value) + parseInt(pointD.value)
+    let mean1 = 0
+    let mean2 = 0
+    let total1 = parseInt(pointA.value) + parseInt(pointB.value)
+    let total2 = parseInt(pointC.value) + parseInt(pointD.value)
     mean1 = total1/2
     mean2 = total2/2
     console.log(mean1)
     firstValuesArr = [pointA.value, mean1 ,pointB.value]
     secondValuesArr = [pointC.value, mean2 ,pointD.value]
     console.log(firstValuesArr, secondValuesArr)
-    plotGraph(firstValuesArr, secondValuesArr)
+    plotGraph(firstValuesArr, secondValuesArr, [])
   })
 })
 
@@ -93,8 +101,8 @@ calculateButton.addEventListener('click', ()=>{
 
     console.log(operation)
     if(operation == 'add'){
-      // addition()
-      console.log('addition()')
+      addition()
+      // console.log('addition()')
     }else if(operation == 'sub'){
       // subtraction()
       console.log('subtraction()')
@@ -112,11 +120,29 @@ calculateButton.addEventListener('click', ()=>{
   }else{
     alert('Select a function to perform')
   }
-
-  
+ 
 })
 
 
+// -- Operations function definations --
+
+// Addition function
+function addition(){
+  let p1 = parseInt(pointA.value)
+  let p2 = parseInt(pointB.value)
+  let p3 = parseInt(pointC.value)
+  let p4 = parseInt(pointD.value)
+  
+  let ansMean = 0
+
+  const add1 = p1 + p3
+  const add2 = p2 + p4
+  const ansTotal = add1 + add2
+  ansMean = ansTotal / 2
+  const answerValuesArr = [add1, ansMean, add2]
+  // console.log(add1, ansMean, add2)
+  plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+}
 
 
 
