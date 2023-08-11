@@ -93,10 +93,24 @@ inputs.forEach(input =>{
 })
 
 
-// 
+// -- Input exception for complement function
+const selectedOperations = document.querySelectorAll('input[name="function"]')
+selectedOperations.forEach(selectedOperation =>{
+  selectedOperation.addEventListener('click', ()=>{
+    console.log(selectedOperation.value)
+    if(selectedOperation.value == 'comp'){    //Disable input Point C & D if complement operation is selected
+      pointC.disabled = true
+      pointD.disabled = true
+    }
+    else{                                     //Enable Point C & D for any other operation selected
+      pointC.disabled = false
+      pointD.disabled = false
+    }
+  })
+})
 
 
-// -- Selecting and calling function
+// -- Selecting operation and calling the respective function
 calculateButton.addEventListener('click', ()=>{
   let operation = document.querySelector('input[name="function"]:checked')
   if(operation){
