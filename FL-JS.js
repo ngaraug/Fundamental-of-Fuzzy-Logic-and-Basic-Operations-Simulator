@@ -93,6 +93,9 @@ inputs.forEach(input =>{
 })
 
 
+// 
+
+
 // -- Selecting and calling function
 calculateButton.addEventListener('click', ()=>{
   let operation = document.querySelector('input[name="function"]:checked')
@@ -104,8 +107,8 @@ calculateButton.addEventListener('click', ()=>{
       addition()
       // console.log('addition()')
     }else if(operation == 'sub'){
-      // subtraction()
-      console.log('subtraction()')
+      subtraction()
+      // console.log('subtraction()')
     }else if(operation == 'comp'){
       // compilment()
       console.log('compilment()')
@@ -141,6 +144,24 @@ function addition(){
   ansMean = ansTotal / 2
   const answerValuesArr = [add1, ansMean, add2]
   // console.log(add1, ansMean, add2)
+  plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+}
+
+// Subtraction function
+function subtraction(){
+  let p1 = parseInt(pointA.value)
+  let p2 = parseInt(pointB.value)
+  let p3 = parseInt(pointC.value)
+  let p4 = parseInt(pointD.value)
+  
+  let ansMean = 0
+
+  const sub1 = p1 - p4
+  const sub2 = p2 - p3
+  const ansTotal = sub1 + sub2
+  ansMean = ansTotal / 2
+  const answerValuesArr = [sub1, ansMean, sub2]
+
   plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
 }
 
