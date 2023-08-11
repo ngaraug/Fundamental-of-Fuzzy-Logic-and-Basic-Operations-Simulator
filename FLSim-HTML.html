@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.9.1/math.js" charset="utf-8"></script>
+    <title>Fuzzy logic and basic operations simulator</title>
+    <link rel="stylesheet" href="FL-CSS.css">
+</head>
+<body>
+    <header>
+        <h1> Introduction to Fundamental of Fuzzy Logic and Basic Operations Simulator</h1>
+    </header>
+    <div class="graph-holder" id="tester" style="height: 60vh; ">
+
+    </div>
+    <div class="inputs-holder">
+        <div class="inputs-container function">
+            <span id="functions-title" class="input-titles">Function:</span>
+       
+            <label>
+                Addition
+                <input type="radio" class="function-input" name="function" value="add">
+            </label>
+            <label>
+                Subtraction
+                <input type="radio" class="function-input" name="function" value="sub">
+            </label>
+            <label>
+                Complement
+                <input type="radio" class="function-input" name="function" value="comp">
+            </label>
+            <label>
+                Union
+                <input type="radio" class="function-input" name="function" value="union">
+            </label>
+            <label>
+                Intersection
+                <input type="radio" class="function-input" name="function" value="int">
+            </label>
+            
+        </div>
+
+        <div class="inputs-container numerics">
+            <span id="inputs-title" class="input-titles">Inputs:</span>
+            <label>
+                Point A:<input type="number" name="point-a" id="a" class="inputs first">
+            </label>
+            <label>
+                Point B:<input type="number" name="point-b" id="b" class="inputs first">
+            </label>
+            <label>
+                Point C:<input type="number" name="point-c" id="c" class="inputs second">
+            </label>
+            <label>
+                Point D:<input type="number" name="point-d" id="d" class="inputs second">
+            </label>
+        </div>
+        
+        <button id="calculate">Calculate</button>
+    </div>
+    <script src="FL-JS.js"></script>
+</body>
+</html>
