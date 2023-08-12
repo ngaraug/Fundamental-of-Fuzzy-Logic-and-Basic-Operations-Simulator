@@ -30,29 +30,77 @@ let layout = {
 };
 
 // -- Function defination for plotting a graph
-function plotGraph(firstValuesArr, secondValuesArr, answerValuesArr){
-  Plotly.newPlot(TESTER, [
-    {
-      x: firstValuesArr,
-      y: [0,1,0],
-      name: 'Fuzzy func 1'
-    },
-    {
-      x: secondValuesArr,
-      y: [0,1,0],
-      name: 'Fuzzy func 2'
-    },
+function plotGraph(firstValuesArr, secondValuesArr, answerValuesArr=[]){
 
-    // For plotting the answer graph
-    {
-      x: answerValuesArr,
-      y: [0,1,0],
-      name: 'Answer func'
-    }
-  ],
-    layout,
-    {scrollZoom: true, displayModeBar: true, zoom: false}
-  );
+  // For plotting the user input only and not the answer
+  if(answerValuesArr.length == 0){    
+    Plotly.newPlot(TESTER, [
+      {
+        x: firstValuesArr,
+        y: [0,1,0],
+        name: 'Fuzzy func 1'
+      },
+      {
+        x: secondValuesArr,
+        y: [0,1,0],
+        name: 'Fuzzy func 2'
+      },
+    ],
+      layout,
+      {scrollZoom: true, displayModeBar: true, zoom: false}
+    );
+  }
+  // For plotting user input and answer for add and sub operations
+  else if(answerValuesArr.length > 2){
+    Plotly.newPlot(TESTER, [
+      {
+        x: firstValuesArr,
+        y: [0,1,0],
+        name: 'Fuzzy func 1'
+      },
+      {
+        x: secondValuesArr,
+        y: [0,1,0],
+        name: 'Fuzzy func 2'
+      },
+      // For plotting the answer graph for add and sub
+      {
+        x: answerValuesArr,
+        y: [0,1,0],
+        name: 'Answer func'
+      }
+    ],
+      layout,
+      {scrollZoom: true, displayModeBar: true, zoom: false}
+    );
+  }
+  // Plotting input and answer for intersection and union 
+  else if(answerValuesArr.length == 2){
+    Plotly.newPlot(TESTER, [
+      {
+        x: firstValuesArr,
+        y: [0,1,0],
+        name: 'Fuzzy func 1'
+      },
+      {
+        x: secondValuesArr,
+        y: [0,1,0],
+        name: 'Fuzzy func 2'
+      },
+  
+      // For plotting the answer graph for add and sub
+      {
+        x: answerValuesArr[0],
+        // y: [0,1,0],
+        y: answerValuesArr[1],
+        name: 'Answer func'
+      }
+    ],
+      layout,
+      {scrollZoom: true, displayModeBar: true, zoom: false}
+    );
+  }
+  
 }
 
 
@@ -67,6 +115,11 @@ const pointB = document.querySelector('#b')
 const pointC = document.querySelector('#c')
 const pointD = document.querySelector('#d')
 
+let newp1 = 0
+let newp2 = 0
+let newp3 = 0
+let newp4 = 0
+
 
 TESTER = document.getElementById('tester');
 
@@ -80,10 +133,10 @@ inputs.forEach(input =>{
   input.addEventListener('change', ()=>{
     let mean1 = 0
     let mean2 = 0
-    let total1 = parseInt(pointA.value) + parseInt(pointB.value)
-    let total2 = parseInt(pointC.value) + parseInt(pointD.value)
-    mean1 = total1/2
-    mean2 = total2/2
+    let total1 = parseFloat(pointA.value) + parseFloat(pointB.value)
+    let total2 = parseFloat(pointC.value) + parseFloat(pointD.value)
+    mean1 = total1 / 2
+    mean2 = total2 / 2
     console.log(mean1)
     firstValuesArr = [pointA.value, mean1 ,pointB.value]
     secondValuesArr = [pointC.value, mean2 ,pointD.value]
@@ -124,11 +177,11 @@ calculateButton.addEventListener('click', ()=>{
       subtraction()
       // console.log('subtraction()')
     }else if(operation == 'comp'){
-      // compilment()
-      console.log('compilment()')
+      // compelment()
+      console.log('compelment()')
     }else if(operation == 'union'){
-      // union()
-      console.log('union()')
+      union()
+      // console.log('union()')
     }else if(operation == 'int'){
       // intersection()
       console.log('intersection()')
@@ -145,10 +198,10 @@ calculateButton.addEventListener('click', ()=>{
 
 // Addition function
 function addition(){
-  let p1 = parseInt(pointA.value)
-  let p2 = parseInt(pointB.value)
-  let p3 = parseInt(pointC.value)
-  let p4 = parseInt(pointD.value)
+  let p1 = parseFloat(pointA.value)
+  let p2 = parseFloat(pointB.value)
+  let p3 = parseFloat(pointC.value)
+  let p4 = parseFloat(pointD.value)
   
   let ansMean = 0
 
@@ -163,10 +216,10 @@ function addition(){
 
 // Subtraction function
 function subtraction(){
-  let p1 = parseInt(pointA.value)
-  let p2 = parseInt(pointB.value)
-  let p3 = parseInt(pointC.value)
-  let p4 = parseInt(pointD.value)
+  let p1 = parseFloat(pointA.value)
+  let p2 = parseFloat(pointB.value)
+  let p3 = parseFloat(pointC.value)
+  let p4 = parseFloat(pointD.value)
   
   let ansMean = 0
 
@@ -179,5 +232,126 @@ function subtraction(){
   plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
 }
 
+// Complement function (*incomplete)
+function complement(){
+  let p1 = parseFloat(pointA.value)
+  let p2 = parseFloat(pointB.value)
 
+  let ansMean = 0
+
+
+}
+
+// Union function
+function union(){
+  let p1 = parseFloat(pointA.value)
+  let p2 = parseFloat(pointB.value)
+  let p3 = parseFloat(pointC.value)
+  let p4 = parseFloat(pointD.value)
+  let total1 = (p1 + p2)
+  let total2 = (p3 + p4)
+  let m1 = total1 / 2
+  let m2 = total2 / 2 
+  
+  let ansMean = 0
+  if( p1>p3 && p4>p2 ){
+    if( m1>m2 ){
+      const uni1 = math.intersect([p1, 0], [m1, 1], [p4, 0], [m2, 1])
+      const uni2 = math.intersect([p2, 0], [m1, 1], [p4, 0], [m2, 1])
+
+      const xp5 = uni1[0]
+      const yp5 = uni1[1]
+      const xp6 = uni2[0] 
+      const yp6 = uni2[1]
+
+      const ansXarr = [p3, m2, xp5, m1, xp6, p4]
+      const ansYarr = [0, 1, yp5, 1, yp6, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+
+    }else if( m1<m2 ){      
+      const uni1 = math.intersect([p1, 0], [m1, 1], [p3, 0], [m2, 1])
+      const uni2 = math.intersect([p2, 0], [m1, 1], [p3, 0], [m2, 1])
+      
+      const xp5 = uni1[0]
+      const yp5 = uni1[1]
+      const xp6 = uni2[0]
+      const yp6 = uni2[1]
+
+      const ansXarr = [p3, xp5, m1, xp6, m2, p4]
+      const ansYarr = [0, yp5, 1, yp6, 1, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+
+    }else if( m1==m2 ){     
+      const ansP2 = m2
+      const answerValuesArr = [p3, ansP2, p4]
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }
+  }
+
+  else if( p3>p1 && p2>p4 ){
+    if( m1>m2 ){
+      const uni1 = math.intersect([p1, 0], [m1, 1], [p3, 0], [m2, 1])
+      const uni2 = math.intersect([p1, 0], [m1, 1], [p4, 0], [m2, 1])
+
+      const xp5 = uni1[0]
+      const yp5 = uni1[1]
+      const xp6 = uni2[0]
+      const yp6 = uni2[1]
+
+      const ansXarr = [p1, xp5, m2, xp6, m1, p2]
+      const ansYarr = [0, yp5, 1, yp6, 1, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+
+    }else if( m1<m2 ){
+      const uni1 = math.intersect([p3, 0], [m2, 1], [m1, 1], [p2, 0])
+      const uni2 = math.intersect([p4, 0], [m2, 1], [m1, 1], [p2, 0])
+
+      const xp5 = uni1[0]
+      const yp5 = uni1[1]
+      const xp6 = uni2[0]
+      const yp6 = uni2[1]
+
+      const ansXarr = [p1, m1, xp5, m2, xp6, p2]
+      const ansYarr = [0, 1, yp5, 1, yp6, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+
+    }else if( m1==m2 ){
+      const ansP2 = m1
+      const answerValuesArr = [p1, ansP2, p2]
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }
+  }
+  else if( p3>p1){
+    const uni = math.intersect([p3, 0], [m2, 1], [m1, 1], [p2, 0])
+
+    const xp5 = uni[0]
+    const yp5 = uni[1] 
+    
+    const ansXarr = [p1, m1, xp5, m2, p4]
+    const ansYarr = [0, 1, yp5, 1, 0]
+    const answerValuesArr = [ansXarr, ansYarr]
+
+    plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+  }
+  else{
+    const uni = math.intersect([m2, 1], [p3, 0], [p2, 0], [m1, 1])
+
+    const xp5 = uni[0]
+    const yp5 = uni[1]
+
+    const ansXarr = [p3, m2, xp5, m1, p2]
+    const ansYarr = [0, 1, yp5, 1, 0]
+    const answerValuesArr = [ansXarr, ansYarr]
+
+    plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+  }
+}
 
