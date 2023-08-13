@@ -202,23 +202,23 @@ function rearrangeCoordinates(){
   let p3 = parseFloat(pointC.value)
   let p4 = parseFloat(pointD.value)
 
-  if(p1 > p2){
-    newp1 = p2
-    newp2 = p1
-  }else if( p1 < p2){
-    newp1 = p1
-    newp2 = p2
-  }
+    if(p1 > p2){
+      newp1 = p2
+      newp2 = p1
+    }else if( p1 <= p2){
+      newp1 = p1
+      newp2 = p2
+    }
+  
+    if(p3 > p4){
+      newp3 = p4
+      newp4 = p3
+    }else if( p3 <= p4){
+      newp3 = p3
+      newp4 = p4
+    }
 
-  if(p3 > p4){
-    newp3 = p4
-    newp4 = p3
-  }else if( p3 < p4){
-    newp3 = p3
-    newp4 = p4
-  }
-  console.log("Rearranged")
-  return [newp1, newp2, newp3, newp4]
+    return [newp1, newp2, newp3, newp4]
 }
 
 
@@ -368,24 +368,36 @@ function union(){
     const xp5 = uni[0]
     const yp5 = uni[1] 
     
+    console.log(m1, m2, "Means")
+
     const ansXarr = [p1, m1, xp5, m2, p4]
     const ansYarr = [0, 1, yp5, 1, 0]
     const answerValuesArr = [ansXarr, ansYarr]
-
+    console.log(ansXarr, ansYarr, "Answer arrays")
     plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
   }
   else{
-    const uni = math.intersect([m1, 1], [p2, 0], [p3, 0], [m2, 1])
+    let uni = math.intersect([m1, 1], [p2, 0], [p3, 0], [m2, 1])
 
-    const xp5 = uni[0]
-    const yp5 = uni[1]
+    let xp5 = uni[0]
+    let yp5 = uni[1]
 
-    // Bug fix--
+    // Bug fix #1-- Sol:(Recalculating when the y-coordinate of p5 goes above or below 1)
+    if(yp5 > 1 || yp5 < 1){
+      temp = p3
+      p3 = p4
+      p4 = temp
+      uni = math.intersect([p3, 0], [m2, 1], [p1, 0], [m1, 1])
+      console.log(uni)
+      xp5 = uni[0]
+      yp5 = uni[1]
+      p3 = p4
+    }
 
     const ansXarr = [p3, m2, xp5, m1, p2]
     const ansYarr = [0, 1, yp5, 1, 0]
     const answerValuesArr = [ansXarr, ansYarr]
-    console.log(ansXarr, ansYarr)
+    console.log(ansXarr, ansYarr, "Answer arrays")
     plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
   }
 }
