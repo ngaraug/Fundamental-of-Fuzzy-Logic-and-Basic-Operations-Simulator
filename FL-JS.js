@@ -325,7 +325,7 @@ function union(){
     }
   }
 
-  else if( p3>p1 && p2>p4 ){
+  else if( p3>p1 && p2>p4 ){  
     if( m1>m2 ){
       const uni1 = math.intersect([p1, 0], [m1, 1], [p3, 0], [m2, 1])
       const uni2 = math.intersect([p1, 0], [m1, 1], [p4, 0], [m2, 1])
@@ -391,6 +391,16 @@ function union(){
       console.log(uni)
       xp5 = uni[0]
       yp5 = uni[1]
+
+      // Bug fix #2-- Sol:(Switching means and p2)
+      if(yp5 > 1){
+        yp5 = 2 - yp5
+        temp = m1
+        m1 = m2
+        m2 = temp
+        p2 = p3
+      }
+      
       p3 = p4
     }
 
@@ -402,3 +412,5 @@ function union(){
   }
 }
 
+//Bugs at:
+// #2: [p1:-1, p2:3, p3:5, p4: -4] (solved)
