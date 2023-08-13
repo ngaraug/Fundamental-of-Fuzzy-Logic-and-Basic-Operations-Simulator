@@ -194,6 +194,34 @@ calculateButton.addEventListener('click', ()=>{
 })
 
 
+
+// Rearrange coordinates to take in consideration negative values
+function rearrangeCoordinates(){
+  let p1 = parseFloat(pointA.value)
+  let p2 = parseFloat(pointB.value)
+  let p3 = parseFloat(pointC.value)
+  let p4 = parseFloat(pointD.value)
+
+  if(p1 > p2){
+    newp1 = p2
+    newp2 = p1
+  }else if( p1 < p2){
+    newp1 = p1
+    newp2 = p2
+  }
+
+  if(p3 > p4){
+    newp3 = p4
+    newp4 = p3
+  }else if( p3 < p4){
+    newp3 = p3
+    newp4 = p4
+  }
+  console.log("Rearranged")
+  return [newp1, newp2, newp3, newp4]
+}
+
+
 // -- Operations function definations --
 
 // Addition function
@@ -244,10 +272,15 @@ function complement(){
 
 // Union function
 function union(){
-  let p1 = parseFloat(pointA.value)
-  let p2 = parseFloat(pointB.value)
-  let p3 = parseFloat(pointC.value)
-  let p4 = parseFloat(pointD.value)
+  newCoordinates = rearrangeCoordinates()
+  // let p1 = parseFloat(pointA.value)
+  // let p2 = parseFloat(pointB.value)
+  // let p3 = parseFloat(pointC.value)
+  // let p4 = parseFloat(pointD.value)
+  let p1 = newCoordinates[0]
+  let p2 = newCoordinates[1]
+  let p3 = newCoordinates[2]
+  let p4 = newCoordinates[3]
   let total1 = (p1 + p2)
   let total2 = (p3 + p4)
   let m1 = total1 / 2
@@ -342,15 +375,17 @@ function union(){
     plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
   }
   else{
-    const uni = math.intersect([m2, 1], [p3, 0], [p2, 0], [m1, 1])
+    const uni = math.intersect([m1, 1], [p2, 0], [p3, 0], [m2, 1])
 
     const xp5 = uni[0]
     const yp5 = uni[1]
 
+    // Bug fix--
+
     const ansXarr = [p3, m2, xp5, m1, p2]
     const ansYarr = [0, 1, yp5, 1, 0]
     const answerValuesArr = [ansXarr, ansYarr]
-
+    console.log(ansXarr, ansYarr)
     plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
   }
 }
