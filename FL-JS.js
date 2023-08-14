@@ -177,8 +177,8 @@ calculateButton.addEventListener('click', ()=>{
       subtraction()
       // console.log('subtraction()')
     }else if(operation == 'comp'){
-      // compelment()
-      console.log('compelment()')
+      complement()
+      // console.log('compelment()')
     }else if(operation == 'union'){
       union()
       // console.log('union()')
@@ -260,14 +260,17 @@ function subtraction(){
   plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
 }
 
-// Complement function (*incomplete)
+// Complement function
 function complement(){
   let p1 = parseFloat(pointA.value)
   let p2 = parseFloat(pointB.value)
+  let total = p1 + p2
+  const mean = total / 2  
 
-  let ansMean = 0
-
-
+  const ansXarr = [p1, mean, p2]
+  const ansYarr = [1, 0, 1]
+  const answerValuesArr = [ansXarr, ansYarr]
+  plotGraph(firstValuesArr, [] ,answerValuesArr)
 }
 
 // Union function
