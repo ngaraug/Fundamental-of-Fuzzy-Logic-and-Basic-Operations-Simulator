@@ -412,5 +412,8 @@ function union(){
   }
 }
 
+
+
+// -- Bug reports
 //Bugs at:
 // #2: [p1:-1, p2:3, p3:5, p4: -4] (solved)
