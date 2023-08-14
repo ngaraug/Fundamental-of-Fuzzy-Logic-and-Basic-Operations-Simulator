@@ -183,8 +183,8 @@ calculateButton.addEventListener('click', ()=>{
       union()
       // console.log('union()')
     }else if(operation == 'int'){
-      // intersection()
-      console.log('intersection()')
+      intersection()
+      // console.log('intersection()')
     }
 
   }else{
@@ -415,8 +415,117 @@ function union(){
   }
 }
 
+// Intersection function
+function intersection(){
+  newCoordinates = rearrangeCoordinates()
+  let p1 = newCoordinates[0]
+  let p2 = newCoordinates[1]
+  let p3 = newCoordinates[2]
+  let p4 = newCoordinates[3]
+
+  const total1 = p1 + p2
+  const total2 = p3 + p4
+  const m1 = total1 / 2
+  const m2 = total2 / 2
+
+  if(p1>p3 && p4>p2){
+    if(m2>m1){
+      const int1 = math.intersect([p1, 0], [m1, 1], [p3, 0], [m2, 1])
+      const int2 = math.intersect([p2, 0], [m1, 1], [p3, 0], [m2, 1])
+
+      const xp5 = int1[0]
+      const yp5 = int1[1]
+      const xp6 = int2[0]
+      const yp6 = int2[1]
+
+      const ansXarr = [p1, xp5, xp6, p2]
+      const ansYarr = [0, yp5, yp6, 0]
+
+      const answerValuesArr = [ansXarr, ansYarr]
+      console.log(answerValuesArr, "Answerbaluearr")
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }else if( m1>m2 ){
+      const int1 = math.intersect([p4, 0], [m2, 1], [p2, 0], [m1, 1])
+      const int2 = math.intersect([p4, 0], [m2, 1], [p1, 0], [m1, 1])
+
+      const xp6 = int1[0]
+      const yp6 = int1[1]
+      const xp5 = int2[0]
+      const yp5 = int2[1]
+
+      const ansXarr = [p1, xp5, xp6, p2]
+      const ansYarr = [0, yp5, yp6, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }else if(m1 == m2){
+      const ansXarr = [p1, m1 ,p2]
+      const ansYarr = [0, 1, 0]
+
+      const answerValuesArr = [ansXarr, ansYarr]
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }
+  }else if(p1<p3 && p4<p2){
+    if(m2<m1){
+      const int1 = math.intersect([p3, 0], [m2, 1], [p1, 0], [m1, 1])
+      const int2 = math.intersect([p4, 0], [m2, 1], [p1, 0], [m1, 1])
+
+      const xp5 = int1[0]
+      const yp5 = int1[1]
+      const xp6 = int2[0]
+      const yp6 = int2[1]
+
+      const ansXarr = [p3, xp5, xp6, p4]
+      const ansYarr = [0, yp5, yp6, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }else if(m1<m2){
+      const int1 = math.intersect([p3, 0], [m2, 1], [p2, 0], [m1, 1])
+      const int2 = math.intersect([p4, 0], [m2, 1], [p2, 0], [m1, 1])
+
+      const xp5 = int1[0]
+      const yp5 = int1[1]
+      const xp6 = int2[0]
+      const yp6 = int2[1]
+
+      const ansXarr = [p3, xp5, xp6, p4]
+      const ansYarr = [0, yp5, yp6, 0]
+      const answerValuesArr = [ansXarr, ansYarr]
+
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }else if(m1 == m2){
+      const ansXarr = [p3, m1 ,p4]
+      const ansYarr = [0, 1, 0]
+
+      const answerValuesArr = [ansXarr, ansYarr]
+      plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+    }
+  }else if(p1>p3){
+    const int = math.intersect([p4, 0], [m2, 1], [p1, 0], [m1, 1])
+
+    const xp5 = int[0]
+    const yp5 = int[1]
+
+    const ansXarr = [p1, xp5, p4]
+    const ansYarr = [0, yp5, 0]
+    const answerValuesArr = [ansXarr, ansYarr]
+    plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+  }else{
+    const int = math.intersect([p3, 0], [m2, 1], [m1, 1], [p2, 0])
+
+    const xp5 = int[0]
+    const yp5 = int[1]
+    
+    const ansXarr = [p3, xp5, p2]
+    const ansYarr = [0, yp5, 0]
+    const answerValuesArr = [ansXarr, ansYarr]
+    plotGraph(firstValuesArr, secondValuesArr, answerValuesArr)
+  }
+}
+
 
 
 // -- Bug reports
 //Bugs at:
 // #2: [p1:-1, p2:3, p3:5, p4: -4] (solved)
+ 
